@@ -1,22 +1,22 @@
 # Журнал экспериментов Практики 2
 
-- Выбранный слабый артефакт Практики 1: practices/practice_01/problem.md — раздел Метрики.
-- Что в нём нужно улучшить: сделать метрики проверяемыми, привязанными к SEC-1, API-1, REL-1, OUT-1; описать способы замера.
-- Как поймём, что изменение полезно: контракт- и E2E-тесты подтверждают формат OUT-1, редактирование секретов, 413 для длинных diff, таймаут и контролируемые ошибки.
+- Выбранный слабый артефакт Практики 1: `practices/practice_01/tests_load.md → кейсы L1-L3`.
+- Что нужно улучшить: перенести только подтверждённые кейсы, добавить числовые пороги и критерии провала, указать инструменты и связь с `problem.md → Метрики`, зафиксировать evidence и соблюдение `CASE.md → OBS-1`.
+- Как поймём, что изменение полезно: в `practices/practice_02/<техника>/tests_load_improved.md` есть только подтверждённые кейсы с порогами из `CASE.md → API-1 (20000 символов), REL-1 (таймаут 10 с)`, с evidence на правило и строки `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22`, с критериями провала и ссылкой на `problem.md → Метрики`.
 
 | Техника | Файл эксперимента | Изменённый файл Практики 1 | Конкретное изменение | Проверка | Что отклонили |
 |---|---|---|---|---|---|
-| Few-shot | [`few_shot/experiment.md`](few_shot/experiment.md) | @practices/practice_01/problem.md — Метрики | Добавили проверяемые метрики для SEC-1, API-1, REL-1, OUT-1 | Контракт-тесты и E2E | Отклонены расплывчатые KPI |
-| R.C.T.F. | [`rctf/experiment.md`](rctf/experiment.md) | @practices/practice_01/context.md — Ограничения | Уточнили запреты (логирование, полномочия) | Проверка по CASE.md | Исключены нерелевантные правила |
-| Chain of Verification | [`chain_of_verification/experiment.md`](chain_of_verification/experiment.md) | @practices/practice_01/problem.md — Почему метрики | Добавили обоснование, связали метрики с рисками | Peer review | Отклонены неподтверждённые доводы |
-| Tree of Thoughts | [`tree_of_thoughts/experiment.md`](tree_of_thoughts/experiment.md) | @practices/practice_01/context.md — Формат результата | Выбрали JSON OUT-1 как дефолт | Сравнение альтернатив | Отклонены свободные тексты |
-| RAG | [`rag/experiment.md`](rag/experiment.md) | @practices/practice_01/context.md — Факты и правила | Перенесли только релевантные правила | Ссылки на CASE.md | Исключены DB/i18n правила |
-| ReAct | [`react/experiment.md`](react/experiment.md) | @practices/practice_01/prompts.md — Master Prompt | Уточнили шаги, остановку и DoD | Тест сценария | Отклонены лишние действия |
+| Few-shot | [few_shot/experiment.md](few_shot/experiment.md) | `practices/practice_01/tests_load.md → кейсы L1-L3`; создан `practices/practice_02/few_shot/tests_load_improved.md` | Перенесены подтверждённые L1 (API-1) и L3 (REL-1, OBS-1) с порогами 20000 символов и 10 секунд; добавлены инструменты, критерии провала, связь с `problem.md → Метрики`, evidence на правило и строки диффа | Сверка с `CASE.md → API-1, REL-1, QA-1, OBS-1`; `problem.md → Метрики`; `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22` | L2 как неподтверждённый; пороги без источника; p99; логирование diff |
+| R.C.T.F. | [rctf/experiment.md](rctf/experiment.md) | `practices/practice_01/tests_load.md → кейсы L1-L3`; создан `practices/practice_02/rctf/tests_load_improved.md` | Создан файл с L1 и L3; добавлены пороги 20000 и 10 секунд, критерии провала, инструменты, связь с `problem.md → Метрики`, evidence на CASE и строки диффа | Сверка с `CASE.md → API-1, REL-1, QA-1, OBS-1`; `problem.md → Метрики`; `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22` | L2; любые числа не из источников; p99; логирование diff |
+| Chain of Verification | [chain_of_verification/experiment.md](chain_of_verification/experiment.md) | `practices/practice_01/tests_load.md → кейсы L1-L3`; создан `practices/practice_02/chain_of_verification/tests_load_improved.md` | По результатам верификации оставлены L1 (API-1) и L3 (REL-1, OBS-1) с явными порогами; добавлены критерии провала и evidence; связь с `problem.md → Метрики` | Сверка с `CASE.md → API-1, REL-1, QA-1, OBS-1`; `problem.md → Метрики`; `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22` | L2; пороги без источника; p99; логирование diff |
+| Tree of Thoughts | [tree_of_thoughts/experiment.md](tree_of_thoughts/experiment.md) | `practices/practice_01/tests_load.md → кейсы L1-L3`; создан `practices/practice_02/tree_of_thoughts/tests_load_improved.md` | Выбрана альтернатива с сохранением только L1 и L3; добавлены пороги (20000; 10с), инструменты, критерии провала, связь с метриками и evidence на CASE/дифф | Сверка с `CASE.md → API-1, REL-1, QA-1, OBS-1`; `problem.md → Метрики`; `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22` | L2; любые не подтверждённые пороги; p99; логирование diff |
+| RAG | [rag/experiment.md](rag/experiment.md) | `practices/practice_01/tests_load.md → кейсы L1-L3`; создан `practices/practice_02/rag/tests_load_improved.md` | Сформированы улучшенные нагрузочные тесты c L1 и L3; пороги из CASE, критерии провала, инструменты и связь с метриками; evidence на правило и строки диффа | Сверка с `CASE.md → API-1, REL-1, QA-1, OBS-1`; `problem.md → Метрики`; `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22` | L2; пороги без источника; p99; логирование diff |
+| ReAct | [react/experiment.md](react/experiment.md) | `practices/practice_01/tests_load.md → кейсы L1-L3`; создан `practices/practice_02/react/tests_load_improved.md` | Пошагово собраны L1 и L3 с порогами 20000 и 10с; добавлены инструменты, критерии провала, связь с `problem.md → Метрики`, evidence по CASE и строкам диффа | Сверка с `CASE.md → API-1, REL-1, QA-1, OBS-1`; `problem.md → Метрики`; `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22` | L2; выдуманные SLO; p99; логирование diff |
 
 ## Независимое ревью
 
 | Замечание другой команды | Где исправили | Evidence |
 |---|---|---|
-| Двусмысленность |  |  |
-| Непроверяемое требование |  |  |
-| Пропущенный риск или источник |  |  |
+| Двусмысленность кейса L2 и отсутствие evidence | `practices/practice_02/rag/tests_load_improved.md → Тест-кейсы` и `→ Критерии провала` и `→ Связь с метриками` | Исключение L2 как неподтверждённого: `CASE.md` не содержит правил параллельности; подтверждённые пороги: `CASE.md → API-1 (20000 символов)`, `REL-1 (10 секунд)`; привязка к коду: `TRAINING_PR.diff → app/api.py:35-38; app/review_service.py:19-22` |
+| Непроверяемое требование о логировании содержимого diff | `practices/practice_02/few_shot/tests_load_improved.md → Критерии провала` | Запрет логирования содержимого: `CASE.md → OBS-1`; подтверждение сценариев и порогов: `CASE.md → API-1, REL-1` |
+| Пропущенная привязка к метрике «доля 5xx < 1%» | `practices/practice_02/chain_of_verification/tests_load_improved.md → Связь с метриками` | Ссылка на метрику качества: `problem.md → Метрики`; привязка кейсов к порогам: `CASE.md → API-1, REL-1` |
