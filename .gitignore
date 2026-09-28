@@ -173,3 +173,5 @@ student_solutions/
 !.roo/
 !.specify/
 !.vscode/
+OPENCODE_SETUP.md
+opencode.json
