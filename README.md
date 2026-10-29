@@ -207,3 +207,10 @@ ITMO/
 ├── AGENTS.md                  # Договорённости с AI-агентами по проекту
 └── venv/                       # Виртуальное окружение
 ```
+
+### Генератор отчётов (Markdown)
+
+- Создать отчёт по умолчанию (reports/labNN.md):
+  - `python tools/new_lab_report.py --lab 1 --fio "Иванов И.И." --group M1234`
+- Записать отчёт в указанный путь:
+  - `python tools/new_lab_report.py --out reports/custom.md`
